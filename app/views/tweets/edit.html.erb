@@ -1,0 +1,45 @@
+<h1>投稿を編集</h1>
+
+<%= form_for @tweet do |f| %>
+
+  <!-- タスク名 -->
+  <div class="field">
+    <%= f.label :title, "タスク名" %>
+    <%= f.text_field :title, size: 30 %>
+  </div>
+
+  <!-- 気の重さ -->
+  <div class="field">
+    <%= f.label :mood_level, "気の重さ" %>
+    <%= f.select :mood_level,
+      [["軽い","軽い"], ["普通","普通"], ["重い","重い"]],
+      include_blank: "選択して下さい" %>
+  </div>
+
+  <!-- かかりそうな時間 -->
+  <div class="field">
+    <%= f.label :estimated_time, "かかりそうな時間（分）" %>
+    <%= f.number_field :estimated_time, size: 10 %>
+  </div>
+
+  <!-- メモ -->
+  <div class="field">
+    <%= f.label :memo, "メモ" %>
+    <%= f.text_area :memo, size: "30x2" %>
+  </div>
+
+  <!-- タグ -->
+  <div class="field">
+    <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
+      <div class="form-check">
+        <%= tag.label class: 'form-check-label' do %>
+          <%= tag.check_box class: 'form-check-input' %>
+          <%= tag.text %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <%= f.submit "編集する" %>
+
+<% end %>

@@ -1,0 +1,48 @@
+<%= form_for(@perfume, class: 'form-horizontal', role: 'form') do |f| %>
+            <div class="container-sindan">
+                <div class="row">
+                    <div class="col-12">
+                        <p>Question1. 今日、体を動かしたい気分？</p>
+                    </div>
+                    <div class="col-6">
+                        <p><%= f.check_box :question, {multiple: true}, "1", nil %>外出OK！</p>
+                    </div>
+                    <div class="col-6">
+                        <p><%= f.check_box :question, {multiple: true}, "2", nil %>できれば動きたくない...</p>
+                    </div>
+
+                    <div class="col-12">
+                        <p>Question2. 今、頭を使うのは…</p>
+                    </div>
+                    <div class="col-6">
+                        <p><%= f.check_box :question, {multiple: true}, "1", nil %>わりといけそう！</p>
+                    </div>
+                    <div class="col-6">
+                        <p><%= f.check_box :question, {multiple: true}, "2", nil %>正直しんどい...</p>
+                    </div>
+
+                    <div class="col-12">
+                        <p>Question3. 今日はどっちを優先したい？</p>
+                    </div>
+                    <div class="col-6">
+                        <p><%= f.check_box :question, {multiple: true}, "1", nil %>達成感🌟</p>
+                    </div>
+                    <div class="col-6">
+                        <p><%= f.check_box :question, {multiple: true}, "2", nil %>安心感、気楽さ💓</p>
+                    </div>
+
+                    <div class="col-12">
+                        <p>Question4. 予定が一つ増えるのは？</p>
+                    </div>
+                    <div class="col-6">
+                        <p><%= f.check_box :question, {multiple: true}, "1", nil %>大丈夫！</p>
+                    </div>
+                    <div class="col-6">
+                        <p><%= f.check_box :question, {multiple: true}, "2", nil %>もう無理💦</p>
+                    </div>
+                </div>
+            </div>
+            <div class="sindanbotan">
+                <%= f.submit "post" %>
+            </div>
+<% end %>

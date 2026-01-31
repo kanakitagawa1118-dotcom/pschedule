@@ -1,0 +1,61 @@
+<%= stylesheet_link_tag 'new', :media => "all" %>
+
+<div class="post-container">
+  <p class="title">新規投稿フォーム</p>
+
+  <%= form_for @tweet do |f| %>
+
+    <!-- タスク名（string・自由記述） -->
+    <div class="field">
+      <%= f.label :title, "タスク名" %>
+      <%= f.text_field :title, size: 30 %>
+    </div>
+  <%= stylesheet_link_tag 'new', :media => "all" %>
+    <!-- 気の重さ（string・選択式） -->
+    <div class="field">
+      <%= f.label :mood_level, "気の重さ" %>
+      <%= f.select :mood_level,
+        [
+          ["軽い", "light"],
+          ["普通", "normal"],
+          ["重い", "heavy"]
+        ],
+        include_blank: "選択して下さい" %>
+    </div>
+
+    <!-- かかりそうな時間（integer） -->
+    <div class="field">
+      <%= f.label :estimated_time, "かかりそうな時間（分）" %>
+      <%= f.number_field :estimated_time, size: 10 %>
+    </div>
+
+    <!-- メモ（text・自由記述） -->
+    <div class="field">
+      <%= f.label :memo, "メモ（任意）" %>
+      <%= f.text_area :memo, size: "30x2" %>
+    </div>
+
+    
+    <div class='form-group'>
+          <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
+              <div class='form-check'>
+                  <%= tag.label class: 'form-check-label' do %>
+                      <%= tag.check_box class: 'form-check-input' %>
+                      <%= tag.text %>
+                  <% end %>
+              </div>
+          <% end %>
+    </div>
+    
+    <div class="field">
+      <%= f.label :image %>
+      <%= f.file_field :image %>
+    </div>
+
+    <%= f.submit "投稿する" %>
+
+  <% end %>
+
+  <%= link_to "一覧に戻る", tweets_path %>
+
+</div>

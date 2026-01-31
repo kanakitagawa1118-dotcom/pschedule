@@ -1,0 +1,19 @@
+<h3>タスク詳細</h3>
+
+<div class="tweet-detail">
+  <p><strong>投稿者:</strong> <%= @tweet.user&.email || "未設定" %></p>
+  <p><strong>タスク名:</strong> <%= @tweet.title.presence || "なし" %></p>
+  <p><strong>気の重さ:</strong> <%= @tweet.mood_level.presence || "未設定" %></p>
+  <p><strong>かかりそうな時間:</strong> <%= @tweet.estimated_time.present? ? "#{@tweet.estimated_time} 分" : "未設定" %></p>
+  <p><strong>メモ:</strong> <%= @tweet.memo.presence || "なし" %></p>
+  <p><strong>作成日時:</strong> <%= @tweet.created_at %></p>
+  <p><strong>更新日時:</strong> <%= @tweet.updated_at %></p>
+  <p><strong>画像:</strong></p><%= image_tag @tweet.image.url if @tweet.image.present? %>
+</div>
+
+<%= link_to "編集する", edit_tweet_path(@tweet) %> |
+<%= link_to "一覧に戻る", tweets_path %>
+
+<% @tweet.tags.each do |tag| %>
+    <span><%= tag.name %></span>
+<% end %>
