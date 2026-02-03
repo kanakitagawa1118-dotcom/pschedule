@@ -61,7 +61,7 @@ end
 gem 'devise'
 
 #画像投稿
-gem 'carrierwave' , '~> 1.3' ,  '>= 1.3.1'
+gem 'carrierwave' , '~> 3.1'
 gem 'cloudinary', '< 2.0.0'
 
 gem 'dotenv-rails'
