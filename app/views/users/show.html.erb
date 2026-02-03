@@ -17,7 +17,7 @@
      <%= image_tag  @user.image, size: '250x200'%>
 <% end %>
 
-<% @user.perfumes.each do |t| %>
+<% @user&.perfumes&.each do |t| %>
     <% if t.question == "1111" %>
     <h6>今日はかなりエネルギー高めの日！</h6>
     <p>少し手応えのあるタスクに挑戦すると、満足度が高そう◎</p>
