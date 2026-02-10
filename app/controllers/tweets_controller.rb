@@ -4,16 +4,13 @@ class TweetsController < ApplicationController
     
   def index
     @tweets = Tweet.all
-
+    @tags = Tag.all
     # 既存：タグ絞り込み
     if params[:tag_ids].present?
-      tag_names = params[:tag_ids]
-                    .select { |_, v| v == "1" }
-                    .keys
-
       @tweets = Tweet.joins(:tags)
-                    .where(tags: { name: tag_names })
-                    .distinct
+                    .where(tags: { id: params[:tag_ids] })
+    else
+      @tweets = Tweet.all
     end
 
     # 既存：タグ作成
@@ -28,11 +25,22 @@ class TweetsController < ApplicationController
     if @latest_perfume.present?
       recommended_tag = @latest_perfume.recommended_tag
 
-      @recommended_tweets = Tweet
-                              .joins(:tags)
-                              .where(tags: { name: recommended_tag })
-                              .distinct
-                              .limit(5)
+      # ① 締切あり（優先）
+      deadline_tasks = Tweet
+                    .joins(:tags)
+                    .where(tags: { name: recommended_tag })
+                    .where.not(deadline: nil)
+                    .order(deadline: :asc)
+
+      # ② 締切なし
+      no_deadline_tasks = Tweet
+                        .joins(:tags)
+                        .where(tags: { name: recommended_tag })
+                        .where(deadline: nil)
+
+      # ③ 合体（締切あり優先）
+      @recommended_tweets =  (deadline_tasks + no_deadline_tasks).uniq.first(5)
+
     else
       @recommended_tweets = []
     end
@@ -80,10 +88,10 @@ class TweetsController < ApplicationController
   def tweet_params
   params.require(:tweet).permit(
     :title,
-    :mood_level,
     :estimated_time,
     :memo,
     :image,
+    :deadline,
     tag_ids: []
   )
 end

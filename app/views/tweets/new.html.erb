@@ -10,18 +10,9 @@
       <%= f.label :title, "タスク名" %>
       <%= f.text_field :title, size: 30 %>
     </div>
-  <%= stylesheet_link_tag 'new', :media => "all" %>
-    <!-- 気の重さ（string・選択式） -->
-    <div class="field">
-      <%= f.label :mood_level, "気の重さ" %>
-      <%= f.select :mood_level,
-        [
-          ["軽い", "light"],
-          ["普通", "normal"],
-          ["重い", "heavy"]
-        ],
-        include_blank: "選択して下さい" %>
-    </div>
+
+    <!-- 締切 -->
+    <%= f.datetime_field :deadline %>
 
     <!-- かかりそうな時間（integer） -->
     <div class="field">
@@ -35,17 +26,45 @@
       <%= f.text_area :memo, size: "30x2" %>
     </div>
 
-    
-    <div class='form-group'>
-          <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
-              <div class='form-check'>
-                  <%= tag.label class: 'form-check-label' do %>
-                      <%= tag.check_box class: 'form-check-input' %>
-                      <%= tag.text %>
-                  <% end %>
-              </div>
+    <!-- タスクの種類 -->
+    <div class="form-group">
+      <h3>タスクの種類</h3>
+
+      <%= f.collection_check_boxes(
+            :tag_ids,
+            Tag.where(tag_type: "category"),
+            :id,
+            :name
+          ) do |tag| %>
+        <div class='form-check'>
+          <%= tag.label class: 'form-check-label' do %>
+            <%= tag.check_box class: 'form-check-input' %>
+            <%= tag.text %>
           <% end %>
+        </div>
+      <% end %>
     </div>
+
+
+    <!-- 気の重さタグ -->
+    <div class="form-group">
+      <h3>気の重さタグ</h3>
+
+      <%= f.collection_check_boxes(
+            :tag_ids,
+            Tag.where(tag_type: "mood"),
+            :id,
+            :name
+          ) do |tag| %>
+        <div class='form-check'>
+          <%= tag.label class: 'form-check-label' do %>
+            <%= tag.check_box class: 'form-check-input' %>
+            <%= tag.text %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
     
     <div class="field">
       <%= f.label :image %>

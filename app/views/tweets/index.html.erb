@@ -1,58 +1,138 @@
 <%= stylesheet_link_tag 'index', :media => "all" %>
 
-<h1>自分の題名</h1>
+<div class="center-links">
+  <div class="new-task">
+  <%= link_to "タスクを新しく投稿する＋", new_tweet_path, class: "cute-button" %>
+  </div>
 
-<%= link_to "今日の気分を診断する", new_perfume_path, class: "btn btn-primary" %>
+  <%= link_to "今日の気分を診断する", new_perfume_path, class: "btn-diagnose" %>
+</div>
 
-<%= link_to "新規投稿へ", new_tweet_path %>
-
-<% if user_signed_in? %>
-  <%= link_to "マイページへ", user_path(current_user.id) %>
-<% end %>
-
-<h2>🌱 今日のおすすめタスク</h2>
+<h1 class="recommend-title-main">🌟今日のおすすめタスク🌟</h1>
 
 <% if @recommended_tweets.any? %>
-  <% @recommended_tweets.each do |tweet| %>
-    <p><%= tweet.title %></p>
-  <% end %>
+  <div class="recommend-scroll">
+    <% @recommended_tweets.each do |tweet| %>    
+      <%= link_to tweet_path(tweet.id), class:"recommend-card-link" do %>
+        <div class="recommend-card">
+          <%= image_tag tweet.image_url, size: "250x200", class:"recommend-image" if tweet.image? %>
+          <div class="recommend-info">
+            <p class="recommend-title"> <%= tweet.title %> </p>
+            <p class="recommend-deadline">
+              <span class="time-left">
+                <%= tweet.remaining_time_text %>
+              </span>
+              <% if tweet.start_now? %>
+                <span class="urgent-badge">
+                  🔥 今すぐ開始推奨
+                </span>
+              <% end %>
+            </p>
+
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
 <% else %>
   <p>診断結果がまだありません</p>
 <% end %>
 
-<div class="tweets-container">
-<h3>🌟タスク一覧🌟</h3>
-  <% @tweets.each do |t| %>
-    <div class="tweet">
-      <div class="main-box">
-        <div class="left-container">
-          <p><strong>投稿者:</strong> <%= t.user&.email || "未設定" %></p>
-          <%= image_tag t.image_url, size: "250x200" if t.image? %>
-          <p><strong>タスク名:</strong> <%= t.title.presence || "なし" %></p>
-          <p><strong>メモ:</strong> <%= t.memo.presence || "なし" %></p>        
-        </div>
+<div class="page-layout">
 
-        <div class="right-container">
-          <%= link_to "詳細へ", tweet_path(t.id) %>
-          <%= link_to "編集する", edit_tweet_path(t.id) %>
-          <%= button_to "削除する", tweet_path(t.id), method: :delete %>
-        </div>
-
-        <p><strong>作成日時:</strong> <%= t.created_at %></p>
-      </div>
+  <!-- 左：タグ検索 -->
+  <aside class="tag-sidebar">
+    <div class="filter-header">
+      <h3>タグで絞り込み</h3>
+      <%= link_to "全てクリア", tweets_path, class:"filter-clear" %>
     </div>
 
-  <% end %>
-</div>
+    <%= form_tag(tweets_path, method: :get) do %>
+      <% if params[:tag_ids] %>
+        <div class="selected-tags">
+          <% @tags.where(id: params[:tag_ids]).each do |tag| %>
+            <span class="active-tag"><%= tag.name %></span>
+          <% end %>
+        </div>
+      <% end %>
 
-<%= form_tag({controller:"tweets",action:"index"}, method: :get) do %>
-    <% Tag.all.each do |t| %>
-        <li><%= check_box :tag_ids, t.name %><%= t.name %></li>
+      <!-- 気の重さ -->
+      <h4 class="tag-group-title">🔥 気の重さ</h4>
+      <% @tags.where(tag_type: "mood").each do |t| %>
+        <label class="tag-chip">
+          <%= check_box_tag "tag_ids[]", t.id, params[:tag_ids]&.include?(t.id.to_s) %>
+          <span><%= t.name %></span>
+        </label>
+      <% end %>
+
+      <!-- タスク種類 -->
+      <h4 class="tag-group-title">📂 タスク種類</h4>
+      <% @tags.where(tag_type: "category").each do |t| %>
+        <label class="tag-chip">
+          <%= check_box_tag "tag_ids[]", t.id, params[:tag_ids]&.include?(t.id.to_s) %>
+          <span><%= t.name %></span>
+        </label>
+      <% end %>
+
+      <div class="filter-actions">
+        <%= submit_tag "絞り込み", class:"filter-button" %>
+      </div>
+
     <% end %>
-    <%= submit_tag '検索' %>
-<% end %>
+  </aside>
 
-<%= form_tag({controller:"tweets",action:"index"}, method: :get) do %>
-    <%= text_field_tag :tag %>
-    <%= submit_tag 'タグを追加' %>
-<% end %>
+
+  <!-- 右：メイン -->
+  <main class="main-content">
+    <div class="task-list">
+      <h2 class="task-list-title">📋タスク一覧📋</h2>
+
+      <% @tweets.each do |t| %>
+        <div class="task-item">
+
+          <!-- 左：画像 -->
+          <div class="task-image">
+            <%= image_tag t.image_url, size: "160x120" if t.image? %>
+          </div>
+
+          <!-- 右：情報 -->
+          <div class="task-content">
+            <div class="task-header">
+              <h4 class="task-title">
+                <%= t.title.presence || "なし" %>
+              </h4>
+              <% t.tags.each do |tag| %>
+                <span class="task-tag">
+                  <%= tag.name %>
+                </span>
+              <% end %>
+
+            </div>
+
+            <p class="task-deadline">
+              締切🕒 <%= t.deadline&.strftime("%m/%d %H:%M") || "なし" %>
+            </p>
+
+
+            <p class="task-memo">
+              メモ📝 <%= t.memo.presence || "なし" %>
+            </p>
+
+            <!-- ボタン -->
+            <div class="task-actions">
+              <%= link_to "詳細を見る", tweet_path(t.id), class: "btn-primary" %>
+              <div class="sub-actions">
+                <%= link_to "内容を編集する✏", edit_tweet_path(t.id) %>
+                <%= link_to "削除", tweet_path(t.id),
+                    method: :delete,
+                    data: { confirm: "本当に削除しますか？" },
+                    class: "btn-delete"%>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      <% end %>
+    </div>
+  </main>
+</div>

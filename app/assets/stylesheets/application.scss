@@ -14,7 +14,8 @@
  *= require_self
  */
 a {
-  color: skyblue; 
+  color: rgb(15, 76, 100); 
+  text-decoration: none;
 }
 * {
   padding: 0;
@@ -23,25 +24,34 @@ a {
 body {
   font-family: "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", "メイリオ",
     Meiryo, "ＭＳ Ｐゴシック", sans-serif;
-  background-image: url("background.jpg");
+  background-image: 
+    linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)),
+    url('26204804.png');
   background-size: cover;
+  background-color: #F7FFFA;
+  background-position: center; 
 }
 header {
-  background-color: #00acee;
-  height: 80px;
+  background-color: #9cdcb9;
+  height: 90px;
   font-weight: bold;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 header a {
-  color: white; 
+  color: rgb(8, 53, 14); 
   text-decoration: none; 
 }
 header h1 {
-  color: white;
+  color: rgb(8, 53, 14);
   margin-left: 20px;
 }
+header h4 {
+  color: rgb(8, 53, 14);
+  margin-left: 20px;
+}
+
 .header-list {
   display: flex;
   align-items: center;
@@ -53,6 +63,7 @@ header li {
   list-style: none;
   margin-right: 40px;
 }
+
 footer {
   color: white;
   height: 30px;

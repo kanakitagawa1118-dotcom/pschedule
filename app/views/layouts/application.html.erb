@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Pschedule" %></title>
+    <title><%= content_for(:title) || "きぶんでToDo" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
@@ -19,12 +19,15 @@
 
   <body>
     <header>
-      <h1>Pschedule</h1>
+      <div class="title-name">
+        <h1>きぶんでToDo</h1>
+        <h4>-気分で選ぶ、やさしいタスク管理-</h4>
+      </div>
       <div class="header-list">
       <ul>
         <% if user_signed_in? %>
-        <li><%= link_to "ホーム", tweets_path %></li>
-        <li><%= button_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
+        <li><%= link_to "マイページ", user_path(current_user.id) %></li>
+        <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
         <% else %>
         <li><%= link_to "新規登録", new_user_registration_path %></li>
         <li><%= link_to "ログイン", new_user_session_path %></li>

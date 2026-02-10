@@ -8,13 +8,8 @@
     <%= f.text_field :title, size: 30 %>
   </div>
 
-  <!-- 気の重さ -->
-  <div class="field">
-    <%= f.label :mood_level, "気の重さ" %>
-    <%= f.select :mood_level,
-      [["軽い","軽い"], ["普通","普通"], ["重い","重い"]],
-      include_blank: "選択して下さい" %>
-  </div>
+  <!-- 締切 -->
+  <%= f.datetime_field :deadline %>
 
   <!-- かかりそうな時間 -->
   <div class="field">
@@ -41,5 +36,7 @@
   </div>
 
   <%= f.submit "編集する" %>
+
+  <%= link_to "一覧に戻る", tweets_path %>
 
 <% end %>
