@@ -18,23 +18,35 @@
   </head>
 
   <body>
-    <header>
-      <div class="title-name">
-        <h1>きぶんでToDo</h1>
-        <h4>-気分で選ぶ、やさしいタスク管理-</h4>
+    <header class="main-header">
+      <!-- 左：ロゴ -->
+      <div class="header-logo">
+        <%= link_to "きぶんでToDo", root_path, class: "logo-link" %>
+        <p class="subtitle">-気分で選ぶ、やさしいタスク管理-</p>
       </div>
-      <div class="header-list">
-      <ul>
+
+      <!-- 右：ナビ -->
+      <nav class="header-nav">
         <% if user_signed_in? %>
-        <li><%= link_to "マイページ", user_path(current_user.id) %></li>
-        <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
+          <%= link_to "トップ", root_path, class:"nav-link" %>
+          <%= link_to "マイページ",
+              user_path(current_user),
+              class:"nav-link" %>
+          <%= button_to "ログアウト",
+              destroy_user_session_path,
+              method: :delete,
+              class:"logout-btn" %>
         <% else %>
-        <li><%= link_to "新規登録", new_user_registration_path %></li>
-        <li><%= link_to "ログイン", new_user_session_path %></li>
+          <%= link_to "新規登録",
+              new_user_registration_path,
+              class:"nav-link" %>
+          <%= link_to "ログイン",
+              new_user_session_path,
+              class:"login-btn" %>
         <% end %>
-      </ul>
-      </div>
+      </nav>
     </header>
+
 
     <main>
       <%= yield %>

@@ -15,7 +15,6 @@ Rails.application.routes.draw do
 
   resources :users, only: [:show] # ユーザーマイページへのルーティング
   resources :tweets
-  resources :users
   resources :perfumes
   root 'tweets#index'
 end

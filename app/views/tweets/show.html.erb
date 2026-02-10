@@ -1,19 +1,92 @@
-<h3>タスク詳細</h3>
+<%= stylesheet_link_tag 'show', media: "all" %>
 
-<div class="tweet-detail">
-  <p><strong>投稿者:</strong> <%= @tweet.user&.email || "未設定" %></p>
-  <p><strong>タスク名:</strong> <%= @tweet.title.presence || "なし" %></p>
-  <p><strong>気の重さ:</strong> <%= @tweet.mood_level.presence || "未設定" %></p>
-  <p><strong>かかりそうな時間:</strong> <%= @tweet.estimated_time.present? ? "#{@tweet.estimated_time} 分" : "未設定" %></p>
-  <p><strong>メモ:</strong> <%= @tweet.memo.presence || "なし" %></p>
-  <p><strong>作成日時:</strong> <%= @tweet.created_at %></p>
-  <p><strong>更新日時:</strong> <%= @tweet.updated_at %></p>
-  <p><strong>画像:</strong></p><%= image_tag @tweet.image.url if @tweet.image.present? %>
+<div class="post-container show-theme">
+
+  <p class="title">📋 タスク詳細 📋</p>
+
+  <div class="tweet-detail">
+
+    <!-- 投稿者 -->
+    <div class="field">
+      <label>・投稿者</label>
+      <p><%= @tweet.user&.email || "未設定" %></p>
+    </div>
+
+    <!-- タスク名 -->
+    <div class="field">
+      <label>・タスク名</label>
+      <p><%= @tweet.title.presence || "なし" %></p>
+    </div>
+
+    <!-- 締切と所要時間 横並び -->
+    <div class="field row-fields">
+      <div class="half-field">
+        <label>・締切</label>
+        <p><%= @tweet.deadline.present? ? @tweet.deadline.strftime("%Y-%m-%d %H:%M") : "未設定" %></p>
+      </div>
+      <div class="half-field">
+        <label>・かかりそうな時間</label>
+        <p><%= @tweet.estimated_time.present? ? "#{@tweet.estimated_time} 分" : "未設定" %></p>
+      </div>
+    </div>
+
+    <!-- メモ -->
+    <div class="field">
+      <label>・メモ</label>
+      <p><%= @tweet.memo.presence || "なし" %></p>
+    </div>
+
+    <!-- タグ表示（種類別横並びカラム） -->
+    <div class="tag-container">
+      <div class="tag-column">
+        <label>・タスクの種類</label>
+        <div class="tag-list">
+          <% @tweet.tags.where(tag_type: "category").each do |tag| %>
+            <span class="tag-chip"><%= tag.name %></span>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="tag-column">
+        <label>・気の重さ</label>
+        <div class="tag-list">
+          <% @tweet.tags.where(tag_type: "mood").each do |tag| %>
+            <span class="tag-chip mood"><%= tag.name %></span>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <!-- 画像と作成/更新日時 横並び -->
+    <div class="image-date-container">
+      <div class="image-column">
+        <label>・画像</label>
+        <% if @tweet.image.present? %>
+          <div class="current-image">
+            <%= image_tag @tweet.image.url %>
+          </div>
+        <% else %>
+          <p>なし</p>
+        <% end %>
+      </div>
+      <div class="date-column">
+        <div class="field">
+          <label>・作成日時</label>
+          <p><%= @tweet.created_at.strftime("%Y-%m-%d %H:%M") %></p>
+        </div>
+        <div class="field">
+          <label>・更新日時</label>
+          <p><%= @tweet.updated_at.strftime("%Y-%m-%d %H:%M") %></p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- アクションリンク -->
+  <div class="action-links">
+    <%= link_to "✏️ 編集する", edit_tweet_path(@tweet), class: "edit-link" %> |
+    <%= link_to "📄 一覧に戻る", tweets_path, class: "back-link" %>
+  </div>
+
 </div>
-
-<%= link_to "編集する", edit_tweet_path(@tweet) %> |
-<%= link_to "一覧に戻る", tweets_path %>
-
-<% @tweet.tags.each do |tag| %>
-    <span><%= tag.name %></span>
-<% end %>

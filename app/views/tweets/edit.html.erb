@@ -1,42 +1,87 @@
-<h1>投稿を編集</h1>
+<%= stylesheet_link_tag 'edit', media: "all" %>
 
-<%= form_for @tweet do |f| %>
+<div class="post-container edit-theme">
 
-  <!-- タスク名 -->
-  <div class="field">
-    <%= f.label :title, "タスク名" %>
-    <%= f.text_field :title, size: 30 %>
+  <p class="title">✏️ タスクを編集</p>
+
+  <div class="back-link">
+    <%= link_to "← 一覧に戻る", tweets_path %>
   </div>
 
-  <!-- 締切 -->
-  <%= f.datetime_field :deadline %>
+  <%= form_for @tweet, html: { multipart: true } do |f| %>
 
-  <!-- かかりそうな時間 -->
-  <div class="field">
-    <%= f.label :estimated_time, "かかりそうな時間（分）" %>
-    <%= f.number_field :estimated_time, size: 10 %>
-  </div>
+    <!-- タスク名 -->
+    <div class="field">
+      <label for="tweet_title">📌 タスク名</label>
+      <%= f.text_field :title %>
+    </div>
 
-  <!-- メモ -->
-  <div class="field">
-    <%= f.label :memo, "メモ" %>
-    <%= f.text_area :memo, size: "30x2" %>
-  </div>
+    <!-- 締切 -->
+    <div class="field">
+      <label for="tweet_deadline">⏰ 締切</label>
+      <%= f.datetime_field :deadline %>
+    </div>
 
-  <!-- タグ -->
-  <div class="field">
-    <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
-      <div class="form-check">
-        <%= tag.label class: 'form-check-label' do %>
-          <%= tag.check_box class: 'form-check-input' %>
-          <%= tag.text %>
+    <!-- 所要時間 -->
+    <div class="field">
+      <label for="tweet_estimated_time">⏳ かかりそうな時間（分）</label>
+      <%= f.number_field :estimated_time %>
+    </div>
+
+    <!-- メモ -->
+    <div class="field">
+      <label for="tweet_memo">📝 メモ</label>
+      <%= f.text_area :memo %>
+    </div>
+
+    <!-- 画像アップロード -->
+    <div class="field image-upload">
+      <label for="tweet_image">🖼 画像</label>
+
+      <% if @tweet.image.present? %>
+        <div class="current-image">
+          <%= image_tag @tweet.image.url %>
+        </div>
+      <% end %>
+
+      <%= f.file_field :image, accept: 'image/*' %>
+      <p class="helper-text">新しい画像を選択すると既存の画像が置き換わります。</p>
+    </div>
+
+    <!-- タスク種類 -->
+    <div class="form-section">
+      <h3 class="section-title">📑 タスクの種類</h3>
+
+      <div class="tag-list">
+        <%= f.collection_check_boxes(:tag_ids, Tag.where(tag_type: "category"), :id, :name) do |tag| %>
+          <div class="tag-chip">
+            <%= tag.label do %>
+              <%= tag.check_box %>
+              <span><%= tag.text %></span>
+            <% end %>
+          </div>
         <% end %>
       </div>
-    <% end %>
-  </div>
+    </div>
 
-  <%= f.submit "編集する" %>
+    <!-- 気の重さ -->
+    <div class="form-section">
+      <h3 class="section-title">🎈 タスクの重さ</h3>
 
-  <%= link_to "一覧に戻る", tweets_path %>
+      <div class="tag-list">
+        <%= f.collection_check_boxes(:tag_ids, Tag.where(tag_type: "mood"), :id, :name) do |tag| %>
+          <div class="tag-chip mood">
+            <%= tag.label do %>
+              <%= tag.check_box %>
+              <span><%= tag.text %></span>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
 
-<% end %>
+    <%= f.submit "更新する" %>
+
+  <% end %>
+
+</div>

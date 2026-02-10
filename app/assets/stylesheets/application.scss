@@ -31,38 +31,74 @@ body {
   background-color: #F7FFFA;
   background-position: center; 
 }
-header {
-  background-color: #9cdcb9;
-  height: 90px;
-  font-weight: bold;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-header a {
-  color: rgb(8, 53, 14); 
-  text-decoration: none; 
-}
-header h1 {
-  color: rgb(8, 53, 14);
-  margin-left: 20px;
-}
-header h4 {
-  color: rgb(8, 53, 14);
-  margin-left: 20px;
+.main-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:16px 40px;
+  background: linear-gradient(
+    180deg,
+    #dff5e8 0%,
+    #c8f0d4 100%
+  );
+  box-shadow:0 2px 10px rgba(0,0,0,0.05);
 }
 
-.header-list {
-  display: flex;
-  align-items: center;
+.header-logo{
+  display:flex;
+  flex-direction:column;
+  line-height: 1.2;   /* ← 行間を詰めて一体感 */
 }
-header ul {
-  display: flex;
+
+.logo-link{
+  font-size:28px;
+  font-weight:700;
+  text-decoration:none;
+  color:#2c3e50;
+  letter-spacing: 1px;
 }
-header li {
-  list-style: none;
-  margin-right: 40px;
+
+.subtitle{
+  font-size:13px;
+  color:#999;
+  margin:5px;
 }
+
+.header-nav{
+  display:flex;
+  align-items:center;
+  gap:16px;
+}
+
+.nav-link{
+  text-decoration:none;
+  color:#444;
+  font-weight:500;
+  padding:6px 12px;
+  border-radius:8px;
+}
+
+.nav-link:hover{
+  background:#f5f5f5;
+}
+
+.login-btn{
+  background:#7fcf9b;
+  color:white;
+  padding:8px 16px;
+  border-radius:20px;
+  text-decoration:none;
+}
+
+.logout-btn{
+  background:#ff6b6b;
+  color:white;
+  border:none;
+  padding:8px 16px;
+  border-radius:20px;
+  cursor:pointer;
+}
+
 
 footer {
   color: white;

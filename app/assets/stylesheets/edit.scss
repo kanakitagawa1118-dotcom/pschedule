@@ -1,25 +1,26 @@
 body {
-  background-color: #f4f8f4;
+  background-color: #f0fff4; /* newより落ち着いた淡い緑 */
 }
 
 .post-container {
   margin: 60px auto;
   width: 520px;
   padding: 45px;
-  border: solid #d3def1;
+  border: solid #cce6cc; /* 緑系に変更 */
   border-radius: 24px;
   text-align: center;
-  background: #f8fbf8;
+  background: #f8fdf8; /* 背景淡い緑 */
   box-shadow:
       0 8px 20px rgba(0,0,0,0.04),
       0 2px 6px rgba(0,0,0,0.03);
 }
+
 .title {
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 30px;
   text-align: center;
-  color: #4b5c4b;
+  color: #3e6e49;
 }
 
 .field {
@@ -28,28 +29,32 @@ body {
   margin-bottom: 22px;
   text-align: left;
 }
+
 .field label {
   display: block;
   font-weight: 600;
   margin-bottom: 6px;
   font-size: 14px;
-  color: #4b5c4b;
+  color: #3e6e49;
 }
+
 .field input,
 .field textarea {
   width: 100%;
   padding: 10px;
   border-radius: 12px;
-  border: 1px solid #dce6dc;
+  border: 1px solid #d4e6d4;
   background: #fafafa;
   font-size: 15px;
 }
+
 .field input:focus,
 .field textarea:focus {
   outline: none;
-  border-color: #7bc47f;
+  border-color: #5fa973;
   background: white;
 }
+
 input[type="datetime-local"] {
   background-color: #fafafa;
 }
@@ -58,6 +63,7 @@ input[type="datetime-local"] {
   display: flex;
   gap: 15px;
 }
+
 .field.half {
   width: 50%;
 }
@@ -65,8 +71,9 @@ input[type="datetime-local"] {
 .form-group {
   margin-top: 30px;
   padding-top: 15px;
-  border-top: 2px dashed #bccaf0;
+  border-top: 2px dashed #bde6b9;
 }
+
 .form-group h3 {
   font-size: 16px;
   margin-bottom: 10px;
@@ -76,28 +83,32 @@ input[type="datetime-local"] {
   display: inline-block;
   margin: 4px;
 }
+
 .form-check-input {
   display: none;
 }
+
 .form-check-label {
   padding: 8px 14px;
   border-radius: 999px;
-  background: #eef5ee;
+  background: #eaf7ef;
   cursor: pointer;
   transition: 0.2s;
   font-size: 14px;
 }
+
 .form-check-input:checked + span {
-  background: #7bc47f;
+  background: #5fa973;
   color: white;
 }
 
 .form-section {
-  background: #f6fbf6;
+  background: #f6fdf6;
   padding: 5px;
   border-radius: 14px;
   margin-bottom: 15px;
 }
+
 .section-title {
   font-size: 18px;
   margin-bottom: 10px;
@@ -111,12 +122,15 @@ input[type="datetime-local"] {
   gap: 10px;
   justify-content: center;
 }
+
 .tag-chip {
   cursor: pointer;
 }
+
 .tag-chip input {
   display: none;
 }
+
 .tag-chip span {
   padding: 6px 14px;
   border-radius: 20px;
@@ -125,18 +139,47 @@ input[type="datetime-local"] {
   font-size: 14px;
   transition: 0.2s;
 }
+
 .tag-chip input:checked + span {
-  background: #63c98d;
+  background: #5fa973;
   color: white;
 }
 
-/* moodタグは少し色変える（視覚区別） */
+/* moodタグは少し色変える */
 .tag-chip.mood span {
   background: #eef4ff;
   color: #4c6edb;
 }
+
 .tag-chip.mood input:checked + span {
   background: #7fa5ff;
+}
+
+/* ===== 画像アップロード欄 ===== */
+.field.image-upload {
+  margin-bottom: 22px;
+}
+
+.field.image-upload input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px solid #d4e6d4;
+  background: #fafafa;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.field.image-upload .current-image {
+  margin-bottom: 10px;
+}
+
+.field.image-upload .current-image img {
+  max-width: 200px;
+  max-height: 200px;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
 /* ===== 戻るリンク ===== */
@@ -144,9 +187,10 @@ input[type="datetime-local"] {
   text-align: left;
   margin-bottom: 15px;
 }
+
 .back-link a {
   text-decoration: none;
-  color: #63c98d;
+  color: #5fa973;
   font-weight: 600;
 }
 
@@ -156,7 +200,7 @@ input[type="submit"] {
   padding: 14px;
   border-radius: 999px;
   border: none;
-  background: #7bc47f;
+  background: #5fa973;
   color: white;
   font-weight: bold;
   cursor: pointer;
@@ -164,6 +208,6 @@ input[type="submit"] {
 }
 
 input[type="submit"]:hover {
-  background: #63aa67;
+  background: #4a8b5e;
   transform: translateY(-1px);
 }
