@@ -8,10 +8,22 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-Tag.create([
-  { name: 'タグ1' },
-  { name: 'タグ2' },
-  { name: 'タグ3' },
-  { name: 'タグ4' },
-  { name: 'タグ5' }
-])
+tags = [
+  '重い',
+  '普通',
+  '軽い',
+  '勉強',
+  '仕事',
+  '就活',
+  '家事',
+  '趣味',
+  '運動',
+  '人間関係',
+  '健康',
+  'クリエイティブ',
+  'その他'
+]
+
+tags.each do |tag_name|
+  Tag.find_or_create_by!(name: tag_name)
+end
