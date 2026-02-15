@@ -15,7 +15,7 @@
     <% @recommended_tweets.each do |tweet| %>    
       <%= link_to tweet_path(tweet.id), class:"recommend-card-link" do %>
         <div class="recommend-card">
-          <%= image_tag tweet.image_url, size: "250x200", class:"recommend-image" if tweet.image? %>
+            <%= image_tag url_for(tweet.image), size: "250x200", class:"recommend-image" if tweet.image.attached? %>          
           <div class="recommend-info">
             <p class="recommend-title"> <%= tweet.title %> </p>
             <p class="recommend-deadline">
@@ -92,7 +92,7 @@
 
           <!-- 左：画像 -->
           <div class="task-image">
-            <%= image_tag t.image_url, size: "160x120" if t.image? %>
+            <%= image_tag url_for(t.image), size: "160x120" if t.image.attached? %>          
           </div>
 
           <!-- 右：情報 -->
