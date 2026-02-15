@@ -48,7 +48,7 @@
       </div>
 
       <div class="tag-column">
-        <label>・気の重さ</label>
+        <label>・タスクの重さ</label>
         <div class="tag-list">
           <% @tweet.tags.where(tag_type: "mood").each do |tag| %>
             <span class="tag-chip mood"><%= tag.name %></span>

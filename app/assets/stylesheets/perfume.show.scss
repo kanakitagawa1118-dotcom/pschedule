@@ -1,0 +1,103 @@
+.result-wrapper{
+  max-width:1100px;
+  margin:60px auto;
+}
+
+.result-header{
+  text-align:center;
+  margin-bottom:30px;
+}
+
+.result-main{
+  font-size:28px;
+}
+
+.result-grid{
+  display:grid;
+  grid-template-columns:2fr 1fr;
+  gap:24px;
+}
+
+.result-main-card{
+  background:#fff0f5;
+  padding:40px;
+  border-radius:20px;
+}
+
+.result-side{
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+
+.side-card{
+  background:white;
+  padding:20px;
+  border-radius:16px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.05);
+}
+
+.type-name{
+  font-size:32px;
+  font-weight:bold;
+  margin-bottom:10px;
+}
+
+.energetic{ color:#ff5c8a; }
+.normal{ color:#8b7cff; }
+.tired{ color:#7a7a7a; }
+
+.back-button{
+  display:block;
+  margin:30px auto;
+  text-align:center;
+}
+
+/* ===== TYPE COLOR ===== */
+
+.result-main-card{
+  padding:40px;
+  border-radius:24px;
+  transition:0.3s;
+}
+
+.result-main-card.energetic{
+  background:#ffe3ee;
+}
+
+.result-main-card.normal{
+  background:#f0ecff;
+}
+
+.result-main-card.tired{
+  background:#f3f3f3;
+}
+
+/* ===== TYPE CODE ===== */
+
+.type-code{
+  font-size:40px;
+  font-weight:900;
+  letter-spacing:2px;
+  margin-bottom:10px;
+}
+
+/* ===== STATUS BAR ===== */
+
+.status{
+  margin-top:20px;
+}
+
+.bar{
+  height:10px;
+  background:#ffffff;
+  border-radius:999px;
+  margin-bottom:12px;
+  overflow:hidden;
+}
+
+.fill{
+  height:100%;
+  background:#ff7aa8;
+  transition:0.5s;
+}

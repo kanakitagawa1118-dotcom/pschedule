@@ -1,0 +1,143 @@
+body {
+  background: #fff5f8;
+}
+
+.sindan-container {
+  width: 600px;
+  margin: 60px auto;
+  padding: 40px;
+  border-radius: 24px;
+  background: #ffffff;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+}
+
+.sindan-title {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #d66b9d;
+}
+
+
+/* =========================
+   ⭐ ここ追加（重要）
+========================= */
+
+.question-card {
+
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  width: 50%;
+
+  /* 初期位置（後で上書きされる） */
+  transform: translateX(-40px);
+
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease,
+    max-height 0.4s ease;
+
+  background: #fff0f5;
+  padding: 0 20px;
+  border-radius: 16px;
+  margin-bottom: 0;
+}
+
+
+/* =========================
+   ⭐ 左右交互の初期位置
+========================= */
+
+/* 奇数 → 左から */
+.question-card:nth-of-type(odd) {
+  transform: translateX(-40px);
+  margin-left: 0;
+  margin-right: auto;
+  transform: translateX(-40px) translateY(-5px);
+}
+
+/* 偶数 → 右から */
+.question-card:nth-of-type(even) {
+  transform: translateX(40px);
+  margin-left: auto;
+  margin-right: 0;
+  transform: translateX(40px) translateY(5px);
+}
+
+
+/* =========================
+   ⭐ 表示状態
+========================= */
+
+.question-card.active {
+
+  opacity: 1;
+  transform: translateX(0);
+
+  max-height: 500px;
+
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+
+.submit-area {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: 0.4s;
+}
+
+.submit-area.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* ========================= */
+
+.question-text {
+  font-weight: bold;
+  margin-bottom: 12px;
+  color: #7a4a5e;
+}
+
+.choice {
+  display: block;
+  margin-bottom: 8px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.choice input {
+  display: none;
+}
+
+.choice span {
+  display: block;
+  padding: 10px;
+  border-radius: 999px;
+  background: #ffe3ee;
+  transition: 0.2s;
+}
+
+.choice input:checked + span {
+  background: #f59cbc;
+  color: white;
+}
+
+.sindan-button {
+  width: 100%;
+  margin-top: 20px;
+  padding: 14px;
+  border-radius: 999px;
+  border: none;
+  background: #f59cbc;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.sindan-button:hover {
+  background: #e07aa1;
+}
+

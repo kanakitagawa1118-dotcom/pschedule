@@ -57,7 +57,7 @@
       <% end %>
 
       <!-- 気の重さ -->
-      <h4 class="tag-group-title">🔥 気の重さ</h4>
+      <h4 class="tag-group-title">🔥 タスクの重さ</h4>
       <% @tags.where(tag_type: "mood").each do |t| %>
         <label class="tag-chip">
           <%= check_box_tag "tag_ids[]", t.id, params[:tag_ids]&.include?(t.id.to_s) %>

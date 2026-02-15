@@ -1,90 +1,116 @@
-        <div class="intoro">
-            <h5>診断結果</h5>
-            <p>今日のあなたの気分は…</p>
+<div class="result-wrapper">
+
+  <!-- ===== HEADER ===== -->
+  <div class="result-header">
+    <p class="result-sub">診断結果</p>
+    <h2 class="result-main">今日のあなたの気分タイプ</h2>
+  </div>
+
+
+  <div class="result-grid">
+
+    <!-- ===== LEFT MAIN RESULT ===== -->
+    <%
+    type_data =
+    case @perfume.question
+
+    when "1111"
+    {code:"ENERGETIC TYPE", title:"今日はかなりエネルギー高めの日！", color:"energetic", energy:90, focus:80}
+
+    when "1112"
+    {code:"ACTIVE BALANCE TYPE", title:"やる気はあるけど詰め込み注意", color:"energetic", energy:75, focus:60}
+
+    when "1121"
+    {code:"CALM ACTIVE TYPE", title:"動けるけど安定重視", color:"normal", energy:60, focus:60}
+
+    when "1122"
+    {code:"LIMITED ENERGY TYPE", title:"無理は禁物", color:"normal", energy:50, focus:40}
+
+    when "1211"
+    {code:"BODY-FIRST TYPE", title:"体は動くけど頭省エネ", color:"energetic", energy:80, focus:30}
+
+    when "1212"
+    {code:"SMALL STEP TYPE", title:"1つ達成でOK", color:"normal", energy:50, focus:35}
+
+    when "1221"
+    {code:"COMFORT TYPE", title:"無理せず気分よく", color:"normal", energy:40, focus:30}
+
+    when "1222"
+    {code:"RECOVERY TYPE", title:"かなりお疲れモード", color:"tired", energy:20, focus:20}
+
+    when "2111"
+    {code:"FOCUS TYPE", title:"じっくり集中できる日", color:"energetic", energy:60, focus:90}
+
+    when "2112"
+    {code:"LIMITED FOCUS TYPE", title:"集中できるけど余裕少なめ", color:"normal", energy:45, focus:70}
+
+    when "2121"
+    {code:"REFLECTION TYPE", title:"整理に最適", color:"normal", energy:35, focus:60}
+
+    when "2122"
+    {code:"SAFE MODE TYPE", title:"安心できる作業を", color:"tired", energy:30, focus:40}
+
+    when "2211"
+    {code:"MINIMUM STEP TYPE", title:"一歩進めばOK", color:"normal", energy:30, focus:50}
+
+    when "2212"
+    {code:"LOW ENERGY TYPE", title:"5分から", color:"tired", energy:20, focus:35}
+
+    when "2221"
+    {code:"RESET TYPE", title:"整える日", color:"tired", energy:15, focus:25}
+
+    when "2222"
+    {code:"FULL REST TYPE", title:"完全オフ寄り", color:"tired", energy:5, focus:10}
+
+    end
+    %>
+
+    <div class="result-main-card <%= type_data[:color] %>">
+
+        <h3 class="type-name">
+            <%= type_data[:code] %>
+        </h3>
+
+        <p class="type-title">
+            <%= type_data[:title] %>
+        </p>
+
+        <!-- MBTI風ステータス -->
+        <div class="status">
+
+            <p>Energy</p>
+            <div class="bar">
+            <div class="fill" style="width:<%= type_data[:energy] %>%"></div>
+            </div>
+
+            <p>Focus</p>
+            <div class="bar">
+            <div class="fill" style="width:<%= type_data[:focus] %>%"></div>
+            </div>
+
         </div>
-        <div class="tweet-container">
-            <div class="tweet">
-                <% if @perfume.question == "1111" %>
-                <h6>今日はかなりエネルギー高めの日！</h6>
-                <p>少し手応えのあるタスクに挑戦すると、満足度が高そう◎</p>
 
-                <% elsif @perfume.question == "1112" %>
-                <h6>やる気はあるけど、詰め込みすぎは注意。</h6>
-                <p>達成感は欲しいけど、余裕は少なめ。</p>
-                <p>「今日これだけやれたらOK」なタスクがおすすめ。</p>
+    </div>
 
-                <% elsif @perfume.question == "1121" %>
-                <h6>動けるけど、心は安定重視。</h6>
-                <p>無理に頑張らなくても、ちゃんと前に進める日。</p>
-                <p>安心感のあるタスクで、気分よく終わらせよう。</p>
 
-                <% elsif @perfume.question == "1122" %>
-                <h6>元気そうに見えて、実は疲れが溜まりやすい日。</h6>
-                <p>できることは多いけど、無理は禁物。</p>
-                <p>短時間で終わるタスクがちょうどいい。</p>
 
-                <% elsif @perfume.question == "1211" %>
-                <h6>体は動かせるけど、頭は省エネモード。</h6>
-                <p>考えすぎないタスクや、手を動かす作業が向いてる。</p>
-                <p>やった感はしっかり得られそう！</p>
+    <!-- ===== RIGHT SIDE CARDS ===== -->
+    <div class="result-side">
 
-                <% elsif @perfume.question == "1212" %>
-                <h6>やりたい気持ちはあるけど、キャパは小さめ。</h6>
-                <p>今日は1つ達成できれば十分。</p>
-                <p>軽めタスクで「できた」を積み重ねよう。</p>
+      <div class="side-card">
+        <h4>💡 今日のヒント</h4>
+        <p>小さな達成を1つ作ろう。</p>
+      </div>
 
-                <% elsif @perfume.question == "1221" %>
-                <h6>無理せず、気分よく過ごしたい日。</h6>
-                <p>外に出たり、簡単な作業でリフレッシュが◎</p>
-                <p>自分にやさしい選択を。</p>
+      <div class="side-card">
+        <h4>✨ おすすめ行動</h4>
+        <p>今の気分に合ったタスクを選ぶのが鍵。</p>
+      </div>
 
-                <% elsif @perfume.question == "1222" %>
-                <h6>今日はかなりお疲れモード。</h6>
-                <p>頑張らなくて大丈夫。</p>
-                <p>「何もしない」も立派な選択肢。</p>
+    </div>
 
-                <% elsif @perfume.question == "2111" %>
-                <h6>じっくり集中できる日。</h6>
-                <p>外に出なくても、頭を使う作業がはかどりそう。</p>
-                <p>腰を据えて取り組むタスクがおすすめ。</p>
+  </div>
 
-                <% elsif @perfume.question == "2112" %>
-                <h6>集中力はあるけど、余裕は少なめ。</h6>
-                <p>一気にやろうとせず、区切りを意識して。</p>
-                <p>ゴールが見えるタスクが◎</p>
+  <%= link_to "トップページに戻る", tweets_path, class:"back-button" %>
 
-                <% elsif @perfume.question == "2121" %>
-                <h6>落ち着いて過ごしたいけど、思考力は十分。</h6>
-                <p>整理・見直し系のタスクにぴったりの日。</p>
-                <p>静かに前進できそう。</p>
-
-                <% elsif @perfume.question == "2122" %>
-                <h6>考えられるけど、心は守りモード。</h6>
-                <p>無理に成果を出さなくてOK。</p>
-                <p>安心できる作業を少しだけ。</p>
-
-                <% elsif @perfume.question == "2211" %>
-                <h6>最低限はやれる、そんな日。</h6>
-                <p>派手な成果より「一歩進んだ」が大事。</p>
-                <p>短くて区切りのいいタスクを。</p>
-
-                <% elsif @perfume.question == "2212" %>
-                <h6>やらなきゃ、とは思ってる。</h6>
-                <p>でも今日はハードルを下げよう。</p>
-                <p>5分で終わることからで十分。</p>
-
-                <% elsif @perfume.question == "2221" %>
-                <h6>今日は整える日。</h6>
-                <p>頑張るより、安心感を優先して。</p>
-                <p>タスクを減らす・見直すのも立派な行動。</p>
-
-                <% elsif @perfume.question == "2222" %>
-                <h6>完全オフ寄りの日。</h6>
-                <p>動けなくても大丈夫。</p>
-                <p>今日は休むことで、次につながる。</p>
-
-                <% end %>
-
-        </div>
-
-        <%= link_to "トップページに戻る", tweets_path %>
+</div>

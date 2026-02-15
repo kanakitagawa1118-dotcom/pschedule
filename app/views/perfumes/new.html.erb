@@ -1,48 +1,72 @@
-<%= form_for(@perfume, class: 'form-horizontal', role: 'form') do |f| %>
-            <div class="container-sindan">
-                <div class="row">
-                    <div class="col-12">
-                        <p>Question1. 今日、体を動かしたい気分？</p>
-                    </div>
-                    <div class="col-6">
-                        <p><%= f.check_box :question, {multiple: true}, "1", nil %>外出OK！</p>
-                    </div>
-                    <div class="col-6">
-                        <p><%= f.check_box :question, {multiple: true}, "2", nil %>できれば動きたくない...</p>
-                    </div>
+<%= form_for(@perfume) do |f| %>
 
-                    <div class="col-12">
-                        <p>Question2. 今、頭を使うのは…</p>
-                    </div>
-                    <div class="col-6">
-                        <p><%= f.check_box :question, {multiple: true}, "1", nil %>わりといけそう！</p>
-                    </div>
-                    <div class="col-6">
-                        <p><%= f.check_box :question, {multiple: true}, "2", nil %>正直しんどい...</p>
-                    </div>
+    <div class="sindan-container">
 
-                    <div class="col-12">
-                        <p>Question3. 今日はどっちを優先したい？</p>
-                    </div>
-                    <div class="col-6">
-                        <p><%= f.check_box :question, {multiple: true}, "1", nil %>達成感🌟</p>
-                    </div>
-                    <div class="col-6">
-                        <p><%= f.check_box :question, {multiple: true}, "2", nil %>安心感、気楽さ💓</p>
-                    </div>
+    <h2 class="sindan-title">🌸 今日の気分診断 🌸</h2>
 
-                    <div class="col-12">
-                        <p>Question4. 予定が一つ増えるのは？</p>
-                    </div>
-                    <div class="col-6">
-                        <p><%= f.check_box :question, {multiple: true}, "1", nil %>大丈夫！</p>
-                    </div>
-                    <div class="col-6">
-                        <p><%= f.check_box :question, {multiple: true}, "2", nil %>もう無理💦</p>
-                    </div>
-                </div>
-            </div>
-            <div class="sindanbotan">
-                <%= f.submit "post" %>
-            </div>
+    <!-- Question 1 -->
+    <div class="question-card active">
+        <p class="question-text">今日、体を動かしたい気分？</p>
+
+        <label class="choice">
+        <%= f.radio_button :question1, "1" %>
+        <span>外出OK！</span>
+        </label>
+
+        <label class="choice">
+        <%= f.radio_button :question1, "2" %>
+        <span>できれば動きたくない...</span>
+        </label>
+    </div>
+
+    <!-- Question 2 -->
+    <div class="question-card">
+        <p class="question-text">今、頭を使うのは…</p>
+
+        <label class="choice">
+        <%= f.radio_button :question2, "1" %>
+        <span>わりといけそう！</span>
+        </label>
+
+        <label class="choice">
+        <%= f.radio_button :question2, "2" %>
+        <span>正直しんどい...</span>
+        </label>
+    </div>
+
+    <!-- Question 3 -->
+    <div class="question-card">
+        <p class="question-text">今日はどっちを優先したい？</p>
+
+        <label class="choice">
+        <%= f.radio_button :question3, "1" %>
+        <span>達成感🌟</span>
+        </label>
+
+        <label class="choice">
+        <%= f.radio_button :question3, "2" %>
+        <span>安心感、気楽さ💓</span>
+        </label>
+    </div>
+
+    <!-- Question 4 -->
+    <div class="question-card">
+        <p class="question-text">予定が一つ増えるのは？</p>
+
+        <label class="choice">
+        <%= f.radio_button :question4, "1" %>
+        <span>大丈夫！</span>
+        </label>
+
+        <label class="choice">
+        <%= f.radio_button :question4, "2" %>
+        <span>もう無理💦</span>
+        </label>
+    </div>
+
+     <!-- submitボタン（最初は非表示） -->
+    <%= f.submit "診断する", class: "sindan-button" %>
+
+    </div>
+
 <% end %>

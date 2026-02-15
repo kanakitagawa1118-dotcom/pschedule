@@ -1,101 +1,49 @@
-<h1>マイページ</h1>
-<p>名前 : <%= @user.name %></p>
-<p>メールアドレス : <%= @user.email %></p>
-<p>プロフィール : <%= @user.profile %></p>
+<div class="mypage-wrapper">
 
-<% if current_user.id == @user.id %>
-  <%= link_to "編集する", edit_user_registration_path %>
-<% end %>
+  <!-- ===== PROFILE ===== -->
 
-<h2>ユーザーの投稿一覧</h2>
-<% @user.tweets.each do |t| %>
-  <%= t.user.name %>
-  <%= t.title %>
-<% end %>
+  <div class="profile-card">
 
-<% if @user.image.attached? %>
-     <%= image_tag  @user.image, size: '250x200'%>
-<% end %>
+    <% if @user.image.attached? %>
+      <%= image_tag @user.image, class:"profile-image" %>
+    <% end %>
 
-<% @user&.perfumes&.each do |t| %>
-    <% if t.question == "1111" %>
-    <h6>今日はかなりエネルギー高めの日！</h6>
-    <p>少し手応えのあるタスクに挑戦すると、満足度が高そう◎</p>
+    <div class="profile-info">
+      <h2><%= @user.name %></h2>
+      <p><%= @user.email %></p>
+      <p class="profile-text"><%= @user.profile %></p>
 
-                <% elsif t.question == "1112" %>
-                <h6>やる気はあるけど、詰め込みすぎは注意。</h6>
-                <p>達成感は欲しいけど、余裕は少なめ。</p>
-                <p>「今日これだけやれたらOK」なタスクがおすすめ。</p>
+      <% if current_user.id == @user.id %>
+        <%= link_to "編集する", edit_user_registration_path, class:"edit-button" %>
+      <% end %>
+    </div>
 
-                <% elsif t.question == "1121" %>
-                <h6>動けるけど、心は安定重視。</h6>
-                <p>無理に頑張らなくても、ちゃんと前に進める日。</p>
-                <p>安心感のあるタスクで、気分よく終わらせよう。</p>
+  </div>
 
-                <% elsif t.question == "1122" %>
-                <h6>元気そうに見えて、実は疲れが溜まりやすい日。</h6>
-                <p>できることは多いけど、無理は禁物。</p>
-                <p>短時間で終わるタスクがちょうどいい。</p>
 
-                <% elsif t.question == "1211" %>
-                <h6>体は動かせるけど、頭は省エネモード。</h6>
-                <p>考えすぎないタスクや、手を動かす作業が向いてる。</p>
-                <p>やった感はしっかり得られそう！</p>
+  <!-- ===== HISTORY ===== -->
 
-                <% elsif t.question == "1212" %>
-                <h6>やりたい気持ちはあるけど、キャパは小さめ。</h6>
-                <p>今日は1つ達成できれば十分。</p>
-                <p>軽めタスクで「できた」を積み重ねよう。</p>
+  <h2 class="history-title">気分履歴</h2>
 
-                <% elsif t.question == "1221" %>
-                <h6>無理せず、気分よく過ごしたい日。</h6>
-                <p>外に出たり、簡単な作業でリフレッシュが◎</p>
-                <p>自分にやさしい選択を。</p>
+  <div class="calendar-grid">
 
-                <% elsif t.question == "1222" %>
-                <h6>今日はかなりお疲れモード。</h6>
-                <p>頑張らなくて大丈夫。</p>
-                <p>「何もしない」も立派な選択肢。</p>
+    <% @results_by_date.each do |date, result| %>
 
-                <% elsif t.question == "2111" %>
-                <h6>じっくり集中できる日。</h6>
-                <p>外に出なくても、頭を使う作業がはかどりそう。</p>
-                <p>腰を据えて取り組むタスクがおすすめ。</p>
+      <div class="calendar-day
+        <% if date == Date.today %> today <% end %>
+        <% if result&.mood_type == "energetic" %> energetic-bg
+        <% elsif result&.mood_type == "normal" %> normal-bg
+        <% elsif result&.mood_type == "tired" %> tired-bg
+        <% end %>">
 
-                <% elsif t.question == "2112" %>
-                <h6>集中力はあるけど、余裕は少なめ。</h6>
-                <p>一気にやろうとせず、区切りを意識して。</p>
-                <p>ゴールが見えるタスクが◎</p>
+        <span class="calendar-date">
+          <%= date.strftime("%d") %>
+        </span>
 
-                <% elsif t.question == "2121" %>
-                <h6>落ち着いて過ごしたいけど、思考力は十分。</h6>
-                <p>整理・見直し系のタスクにぴったりの日。</p>
-                <p>静かに前進できそう。</p>
-
-                <% elsif t.question == "2122" %>
-                <h6>考えられるけど、心は守りモード。</h6>
-                <p>無理に成果を出さなくてOK。</p>
-                <p>安心できる作業を少しだけ。</p>
-
-                <% elsif t.question == "2211" %>
-                <h6>最低限はやれる、そんな日。</h6>
-                <p>派手な成果より「一歩進んだ」が大事。</p>
-                <p>短くて区切りのいいタスクを。</p>
-
-                <% elsif t.question == "2212" %>
-                <h6>やらなきゃ、とは思ってる。</h6>
-                <p>でも今日はハードルを下げよう。</p>
-                <p>5分で終わることからで十分。</p>
-
-                <% elsif t.question == "2221" %>
-                <h6>今日は整える日。</h6>
-                <p>頑張るより、安心感を優先して。</p>
-                <p>タスクを減らす・見直すのも立派な行動。</p>
-
-                <% elsif t.question == "2222" %>
-                <h6>完全オフ寄りの日。</h6>
-                <p>動けなくても大丈夫。</p>
-                <p>今日は休むことで、次につながる。</p>
+      </div>
 
     <% end %>
-<% end %>
+
+  </div>
+
+</div>

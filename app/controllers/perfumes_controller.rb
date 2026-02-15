@@ -13,8 +13,13 @@ class PerfumesController < ApplicationController
     def create
       @perfume = Perfume.new(perfume_params)
       
-        if params[:perfume][:question]
-        result_code = params[:perfume][:question].join("")
+        result_code = [
+            @perfume.question1,
+            @perfume.question2,
+            @perfume.question3,
+            @perfume.question4
+            ].join
+
         @perfume.question = result_code
 
         @perfume.mood_type =
@@ -25,7 +30,6 @@ class PerfumesController < ApplicationController
                 "tired"
             else
                 "normal"
-        end
         end
 
 
@@ -41,6 +45,11 @@ class PerfumesController < ApplicationController
 
     private
     def perfume_params
-        params.require(:perfume).permit(:id, question: [])
+        params.require(:perfume).permit(
+            :question1,
+            :question2,
+            :question3,
+            :question4
+        )
     end
 end
