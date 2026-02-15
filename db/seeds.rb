@@ -8,22 +8,25 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-tags = [
-  '重い',
-  '普通',
-  '軽い',
-  '勉強',
-  '仕事',
-  '就活',
-  '家事',
-  '趣味',
-  '運動',
-  '人間関係',
-  '健康',
-  'クリエイティブ',
-  'その他'
-]
+[
+  { name: '重い', tag_type: 'mood' },
+  { name: '普通', tag_type: 'mood' },
+  { name: '軽い', tag_type: 'mood' },
+  { name: '勉強', tag_type: 'category' },
+  { name: '仕事', tag_type: 'category' },
+  { name: '就活', tag_type: 'category' },
+  { name: '家事', tag_type: 'category' },
+  { name: '趣味', tag_type: 'category' },
+  { name: '運動', tag_type: 'category' },
+  { name: '人間関係', tag_type: 'category' },
+  { name: '健康', tag_type: 'category' },
+  { name: 'クリエイティブ', tag_type: 'category' },
+  { name: 'その他', tag_type: 'category' }
+].each do |tag|
+  record = Tag.find_or_initialize_by(name: tag[:name])
+  record.update!(tag_type: tag[:tag_type])
+end
 
-tags.each do |tag_name|
-  Tag.find_or_create_by!(name: tag_name)
+Tag.select(:name).distinct.each do |tag|
+  Tag.where(name: tag.name).offset(1).destroy_all
 end

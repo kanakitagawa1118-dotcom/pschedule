@@ -2,7 +2,7 @@ class Tweet < ApplicationRecord
     belongs_to :user
     has_many :tweet_tag_relations, dependent: :destroy
     has_many :tags, through: :tweet_tag_relations, dependent: :destroy
-    mount_uploader :image, ImageUploader
+    has_one_attached :image
 
     def remaining_time_text
         return "期限なし" unless deadline.present?
