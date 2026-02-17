@@ -40,7 +40,9 @@
 
       <% if @tweet.image.present? %>
         <div class="current-image">
-          <%= image_tag @tweet.image.url %>
+          <% if @tweet.image.attached? %>
+            <%= image_tag url_for(@tweet.image) %>
+          <% end %>
         </div>
       <% end %>
 

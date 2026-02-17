@@ -122,11 +122,13 @@
             <div class="task-actions">
               <%= link_to "詳細を見る", tweet_path(t.id), class: "btn-primary" %>
               <div class="sub-actions">
-                <%= link_to "内容を編集する✏", edit_tweet_path(t.id) %>
+                <%= link_to "内容を編集する✏️", edit_tweet_path(t.id) %>
                 <%= link_to "削除", tweet_path(t.id),
-                    method: :delete,
-                    data: { confirm: "本当に削除しますか？" },
-                    class: "btn-delete"%>
+                    data: { 
+                      turbo_method: :delete,
+                      turbo_confirm: "本当に削除しますか？" 
+                    },
+                    class: "btn-delete" %>
               </div>
             </div>
           </div>
