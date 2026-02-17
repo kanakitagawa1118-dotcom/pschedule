@@ -328,3 +328,34 @@
   width: fit-content;
 }
 
+/* タグラッパー */
+.task-tags-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 8px;
+}
+
+/* タグ全般 */
+.task-tag {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* カテゴリ（勉強、仕事など） */
+.task-tag.category {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  border: 1px solid #a5d6a7;
+}
+
+/* 気分の重さ（重い、普通など） */
+.task-tag.mood {
+  background-color: #fff3e0;
+  color: #f57c00;
+  border: 1px solid #ffcc80;
+}
