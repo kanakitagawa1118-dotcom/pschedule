@@ -7,19 +7,22 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+puts "Cleaning up old tags..."
+Tag.destroy_all
 
-Tag.create([
-  { name: '重い' },
-  { name: '普通' },
-  { name: '軽い' },
-  { name: '勉強' },
-  { name: '就活' },
-  { name: '家事' },
-  { name: '仕事' },
-  { name: '趣味' },
-  { name: '運動' },
-  { name: '人間関係' },
-  { name: '健康' },
-  { name: 'クリエイティブ' },
-  { name: 'その他' },
+Tag.create!([
+  { name: '重い', tag_type: 'mood' },
+  { name: '普通', tag_type: 'mood' },
+  { name: '軽い', tag_type: 'mood' },
+
+  { name: '勉強', tag_type: 'category' },
+  { name: '就活', tag_type: 'category' },
+  { name: '家事', tag_type: 'category' },
+  { name: '仕事', tag_type: 'category' },
+  { name: '趣味', tag_type: 'category' },
+  { name: '運動', tag_type: 'category' },
+  { name: '人間関係', tag_type: 'category' },
+  { name: '健康', tag_type: 'category' },
+  { name: 'クリエイティブ', tag_type: 'category' },
+  { name: 'その他', tag_type: 'category' },
 ])
